@@ -10,7 +10,7 @@
     "dev": "tsx watch ./src/index.ts",
     "format": "biome format --write ./src",
     "lint": "biome lint --write ./src",
-    "start": "node dist/index.js",
+    "start": "npm run dev && node dist/index.js",
     "type-check": "tsc --noEmit",
     "prepare": "husky"
   },
@@ -41,6 +41,7 @@
     ]
   },
   "dependencies": {
-    "express": "^5.0.1"
+    "express": "^5.0.1",
+    "morgan": "^1.10.0"
   }
 }
