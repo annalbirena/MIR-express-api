@@ -27,27 +27,25 @@ let data = [
   },
 ];
 
-/* const randomId = () => {
-  const range = 9999 - 99 + 1;
-  const randomNumber = Math.floor(Math.random() * range) + 99;
-  const id = randomNumber.toString().padStart(4, '0');
-
-  return id;
-}; */
-
 const randomId = () => Math.floor(Math.random() * 1000000);
 
 app.use(express.json());
-app.use(morgan('tiny'));
 
+app.use(
+  morgan(':method :url :status :res[content-length] - :response-time ms :body'),
+);
+
+// Listado de personas
 app.get('/api/persons', (req: Request, res: Response) => {
   res.json(data);
 });
 
+// Informacion de agenda telefonica
 app.get('/info', (req: Request, res: Response) => {
   res.send(`Phonebook has info for ${data.length} people <br/> ${new Date()}`);
 });
 
+// Consultar informacion de una persona
 app.get('/api/persons/:id', (req: Request, res: Response) => {
   const { id } = req.params;
   const person = data.find((p) => p.id === id);
@@ -61,6 +59,7 @@ app.get('/api/persons/:id', (req: Request, res: Response) => {
   res.json(person);
 });
 
+// Eliminar una persona
 app.delete('/api/persons/:id', (req: Request, res: Response) => {
   const { id } = req.params;
   data = data.filter((p) => p.id !== id);
@@ -68,6 +67,7 @@ app.delete('/api/persons/:id', (req: Request, res: Response) => {
   res.status(204).end();
 });
 
+// Agregar una persona
 app.post('/api/persons', (req: Request, res: Response) => {
   const person = req.body;
 
@@ -96,6 +96,13 @@ app.post('/api/persons', (req: Request, res: Response) => {
   data = [...data, newPerson];
 
   res.status(201).json(person);
+});
+
+morgan.token('body', (req: Request) => {
+  if (req.method === 'POST') {
+    return JSON.stringify((req as express.Request).body);
+  }
+  return '';
 });
 
 app.listen(port, () => {
