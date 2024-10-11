@@ -1,0 +1,46 @@
+{
+  "name": "backend-nft-marketplace",
+  "version": "1.0.0",
+  "description": "backend for nft marketplace",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "check": "biome check --write ./src",
+    "dev": "tsx watch ./src/index.ts",
+    "format": "biome format --write ./src",
+    "lint": "biome lint --write ./src",
+    "start": "node dist/index.js",
+    "type-check": "tsc --noEmit",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khriztianmoreno/backend-nft-marketplace.git"
+  },
+  "author": "Cristian Moreno",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/khriztianmoreno/backend-nft-marketplace/issues"
+  },
+  "homepage": "https://github.com/khriztianmoreno/backend-nft-marketplace#readme",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.3",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.5",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
+  },
+  "lint-staged": {
+    "*": [
+      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
+    ]
+  },
+  "dependencies": {
+    "express": "^5.0.1"
+  }
+}
